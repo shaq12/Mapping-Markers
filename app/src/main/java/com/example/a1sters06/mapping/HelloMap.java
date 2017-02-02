@@ -1,10 +1,12 @@
 package com.example.a1sters06.mapping;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import org.osmdroid.views.MapView;
 import org.osmdroid.util.GeoPoint;
+import android.view.View.OnClickListener;
 import org.osmdroid.config.Configuration;
 
 public class HelloMap extends Activity
@@ -27,6 +29,6 @@ public class HelloMap extends Activity
 
         mv.setBuiltInZoomControls(true);
         mv.getController().setZoom(14);
-        mv.getController().setCenter(new GeoPoint(40.1,-22.5));
+        mv.getController().setCenter(new GeoPoint(51.582403,-0.111633));
     }
 }

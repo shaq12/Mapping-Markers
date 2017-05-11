@@ -77,6 +77,7 @@ public class HelloMap extends Activity
         mv.getOverlays().add(items);
 
         ArrayList<Overlay> overlay = new ArrayList<Overlay>();
+        /*
         try {
             BufferedReader reader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath()+
                     "/poi.txt"));
@@ -94,9 +95,10 @@ public class HelloMap extends Activity
         {
             new AlertDialog.Builder(this).setMessage(e.toString()).setPositiveButton("OK", null).show();
         }
+        */
     }
 
-    /*
+
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if(item.getItemId() == R.id.choosemap)
@@ -110,8 +112,8 @@ public class HelloMap extends Activity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu_hello_map, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
-    */
+
 }

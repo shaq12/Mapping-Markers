@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mapping</string>
     <string name="Go">GO!</string>
+    <string name="choosemap">Choose Map Style</string>
 </resources>

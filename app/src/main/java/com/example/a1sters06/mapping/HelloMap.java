@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
@@ -22,13 +23,17 @@ import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class HelloMap extends Activity
 {
-
+    String dir_path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    EditText et;
     MapView mv;
     ItemizedIconOverlay<OverlayItem> items;
     ItemizedIconOverlay.OnItemGestureListener<OverlayItem> markerGestureListener;
@@ -70,14 +75,14 @@ public class HelloMap extends Activity
         };
 
         items = new ItemizedIconOverlay<OverlayItem>(this,new ArrayList<OverlayItem>(),null);
-        OverlayItem bestkebab = new OverlayItem("BestKebab", "kebab shop in hornsey",new GeoPoint(51.582540, -0.118349));
-        OverlayItem holyinnocents = new OverlayItem ("holyinnocents", "church in hornsey", new GeoPoint(51.583144, -0.117708));
+        OverlayItem bestkebab = new OverlayItem("WestQuay", "shopping centre in southampton",new GeoPoint(50.9037, -1.4067));
+        OverlayItem holyinnocents = new OverlayItem ("Asda", "supermarket in southampton", new GeoPoint(50.9059, -1.4074));
         items.addItem(bestkebab);
         items.addItem(holyinnocents);
         mv.getOverlays().add(items);
 
         ArrayList<Overlay> overlay = new ArrayList<Overlay>();
-        /*
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory().getAbsolutePath()+
                     "/poi.txt"));
@@ -95,9 +100,18 @@ public class HelloMap extends Activity
         {
             new AlertDialog.Builder(this).setMessage(e.toString()).setPositiveButton("OK", null).show();
         }
-        */
+
+
+
     }
 
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -107,13 +121,41 @@ public class HelloMap extends Activity
             startActivity(intent);
             return true;
         }
-        return false;
-    }
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
+
+        if (item.getItemId() == R.id.menu_save) {
+
+            try {
+                PrintWriter pw =
+                        new PrintWriter(new FileWriter(Environment.getExternalStorageDirectory().getAbsolutePath() + "/save.txt"));
+
+                for (int i = 0; i < items.size(); i++) {
+                    OverlayItem marker = items.getItem(i);
+                    String saveString = marker.getTitle() + "," + marker.getSnippet() + "," + marker.getPoint();
+
+                    pw.write(saveString);
+                }
+                pw.flush();
+                pw.close();
+                return true;
+
+
+            } catch (IOException e) {
+                System.out.println("Error! " + e.getMessage());
+            }
+
+            return true;
+        }
+
+                return false;
     }
 
+
 }
+
+
+
+
+
+
+
+
